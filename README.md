@@ -5,10 +5,14 @@ A comprehensive analysis of gravitational waves induced by non-Gaussian cosmolog
 Used in arXiv: 2412.02500
 
 Authors:
+
 Zhi-Chao Zhao (zhaozc@cau.edu.cn)
+
 Sai Wang (wangsai@ihep.ac.cn)
+
 Jun-Peng Li (lijunpeng@ihep.ac.cn)
-Kazunori Kohri 
+
+Kazunori Kohri (kazunori.kohri@gmail.com) 
 
 =================================================================
 
