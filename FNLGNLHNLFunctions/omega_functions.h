@@ -1,0 +1,91 @@
+#ifndef OMEGA_FUNCTIONS_H
+#define OMEGA_FUNCTIONS_H
+
+// Declare all spline_ variables as extern
+extern double evaluate_spline_B(double k);
+extern double evaluate_spline_Omega_G(double k);
+extern double evaluate_spline_Omega_H(double k);
+extern double evaluate_spline_Omega_H2(double k);
+extern double evaluate_spline_Omega_H3(double k);
+extern double evaluate_spline_Omega_R(double k);
+extern double evaluate_spline_Omega_RH(double k);
+extern double evaluate_spline_Omega_RH2(double k);
+extern double evaluate_spline_Omega_R2(double k);
+extern double evaluate_spline_Omega_R2H(double k);
+extern double evaluate_spline_Omega_R3(double k);
+extern double evaluate_spline_Omega_C(double k);
+extern double evaluate_spline_Omega_CH(double k);
+extern double evaluate_spline_Omega_CH2(double k);
+extern double evaluate_spline_Omega_CR(double k);
+extern double evaluate_spline_Omega_CRH(double k);
+extern double evaluate_spline_Omega_CR2(double k);
+extern double evaluate_spline_Omega_C2(double k);
+extern double evaluate_spline_Omega_C2H(double k);
+extern double evaluate_spline_Omega_C2R(double k);
+extern double evaluate_spline_Omega_C3(double k);
+extern double evaluate_spline_Omega_Z(double k);
+extern double evaluate_spline_Omega_ZH(double k);
+extern double evaluate_spline_Omega_ZH2(double k);
+extern double evaluate_spline_Omega_ZR(double k);
+extern double evaluate_spline_Omega_ZRH(double k);
+extern double evaluate_spline_Omega_ZR2(double k);
+extern double evaluate_spline_Omega_Z2(double k);
+extern double evaluate_spline_Omega_Z2H(double k);
+extern double evaluate_spline_Omega_Z2R(double k);
+extern double evaluate_spline_Omega_Z3(double k);
+extern double evaluate_spline_Omega_P(double k);
+extern double evaluate_spline_Omega_PH(double k);
+extern double evaluate_spline_Omega_PH2(double k);
+extern double evaluate_spline_Omega_PR(double k);
+extern double evaluate_spline_Omega_PRH(double k);
+extern double evaluate_spline_Omega_PR2(double k);
+extern double evaluate_spline_Omega_PC(double k);
+extern double evaluate_spline_Omega_PCH(double k);
+extern double evaluate_spline_Omega_PCR(double k);
+extern double evaluate_spline_Omega_P2(double k);
+extern double evaluate_spline_Omega_P2H(double k);
+extern double evaluate_spline_Omega_P2R(double k);
+extern double evaluate_spline_Omega_PC2(double k);
+extern double evaluate_spline_Omega_P2C(double k);
+extern double evaluate_spline_Omega_P3(double k);
+extern double evaluate_spline_Omega_N(double k);
+extern double evaluate_spline_Omega_NH(double k);
+extern double evaluate_spline_Omega_NH2(double k);
+extern double evaluate_spline_Omega_NR(double k);
+extern double evaluate_spline_Omega_NRH(double k);
+extern double evaluate_spline_Omega_NR2(double k);
+extern double evaluate_spline_Omega_NZH(double k);
+extern double evaluate_spline_Omega_NZR(double k);
+extern double evaluate_spline_Omega_N2R(double k);
+extern double evaluate_spline_Omega_CZ(double k);
+extern double evaluate_spline_Omega_CZH(double k);
+extern double evaluate_spline_Omega_CZH2(double k);
+extern double evaluate_spline_Omega_CZHp(double k);
+extern double evaluate_spline_Omega_CZR(double k);
+extern double evaluate_spline_Omega_CZRH(double k);
+extern double evaluate_spline_Omega_C2Z(double k);
+extern double evaluate_spline_Omega_C2ZH(double k);
+extern double evaluate_spline_Omega_CZ2(double k);
+extern double evaluate_spline_Omega_CZ2H(double k);
+extern double evaluate_spline_Omega_PZ(double k);
+extern double evaluate_spline_Omega_PZH(double k);
+extern double evaluate_spline_Omega_PZR(double k);
+extern double evaluate_spline_Omega_PZC(double k);
+extern double evaluate_spline_Omega_PZCH(double k);
+extern double evaluate_spline_Omega_P2Z(double k);
+extern double evaluate_spline_Omega_PZ2(double k);
+extern double evaluate_spline_Omega_NC(double k);
+extern double evaluate_spline_Omega_NCH(double k);
+extern double evaluate_spline_Omega_NCR(double k);
+extern double evaluate_spline_Omega_NCZH(double k);
+extern double evaluate_spline_Omega_NC2(double k);
+extern double evaluate_spline_Omega_PN(double k);
+extern double evaluate_spline_Omega_PNH(double k);
+extern double evaluate_spline_Omega_PNR(double k);
+extern double evaluate_spline_Omega_PNC(double k);
+extern double evaluate_spline_Omega_P2N(double k);
+
+// Declare the function to initialize all splines
+void spline_function_initial_all();
+
+#endif // OMEGA_FUNCTIONS_H

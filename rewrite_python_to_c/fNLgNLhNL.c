@@ -1,0 +1,199 @@
+#include <stdio.h>
+#include <math.h>
+#include "omega_functions.h"
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+
+typedef struct {
+    double sigma;
+    double k_;
+    double A;
+    double nu_s;
+    double FNL;
+    double FNLls;
+    double GNL;
+    double GNLlss;
+    double GNLlls;
+    double HNL;
+    double HNLlsss;
+    double HNLllss;
+    double HNLllls;
+    double Fa;
+    double Ga;
+    double Ha;
+} zOpar;
+
+double Gs(zOpar myzOpar){
+    double value;
+    return 2*evaluate_spline_Omega_G(myzOpar.k_);}
+
+double F2(zOpar myzOpar){
+    double value;
+    return 8*(2*evaluate_spline_Omega_C(myzOpar.k_) + evaluate_spline_Omega_H(myzOpar.k_) + 2*evaluate_spline_Omega_Z(myzOpar.k_));}
+
+double F4(zOpar myzOpar){
+    double value;
+    return 8*(2*evaluate_spline_Omega_N(myzOpar.k_) + 4*evaluate_spline_Omega_P(myzOpar.k_) + evaluate_spline_Omega_R(myzOpar.k_));}
+
+double G1(zOpar myzOpar){
+    double value;
+    return 24*evaluate_spline_Omega_G(myzOpar.k_);}
+
+double G2(zOpar myzOpar){
+    double value;
+    return 12*(6*evaluate_spline_Omega_C2(myzOpar.k_) + 9*evaluate_spline_Omega_G(myzOpar.k_) + 2*evaluate_spline_Omega_H2(myzOpar.k_) + 6*evaluate_spline_Omega_Z2(myzOpar.k_));}
+
+double G3(zOpar myzOpar){
+    double value;
+    return 72*(6*evaluate_spline_Omega_C2(myzOpar.k_) + 12*evaluate_spline_Omega_CZH(myzOpar.k_) + 3*evaluate_spline_Omega_G(myzOpar.k_) + 2*evaluate_spline_Omega_H2(myzOpar.k_) + 6*evaluate_spline_Omega_Z2(myzOpar.k_));}
+
+double G4(zOpar myzOpar){
+    double value;
+    return 18*(36*evaluate_spline_Omega_C2(myzOpar.k_) + 144*evaluate_spline_Omega_CZH(myzOpar.k_) + 9*evaluate_spline_Omega_G(myzOpar.k_) + 12*evaluate_spline_Omega_H2(myzOpar.k_) + 36*evaluate_spline_Omega_NR(myzOpar.k_) + 36*evaluate_spline_Omega_P2(myzOpar.k_) + 72*evaluate_spline_Omega_PN(myzOpar.k_) + 36*evaluate_spline_Omega_PR(myzOpar.k_) + 4*evaluate_spline_Omega_R2(myzOpar.k_) + 36*evaluate_spline_Omega_Z2(myzOpar.k_));}
+
+double H2(zOpar myzOpar){
+    double value;
+    return 96*(6*evaluate_spline_Omega_C(myzOpar.k_) + 4*evaluate_spline_Omega_C3(myzOpar.k_) + 3*evaluate_spline_Omega_H(myzOpar.k_) + evaluate_spline_Omega_H3(myzOpar.k_) + 6*evaluate_spline_Omega_Z(myzOpar.k_) + 4*evaluate_spline_Omega_Z3(myzOpar.k_));}
+
+double H4(zOpar myzOpar){
+    double value;
+    return 1152*(36*evaluate_spline_Omega_C2R(myzOpar.k_) + 144*evaluate_spline_Omega_CZHp(myzOpar.k_) + 96*evaluate_spline_Omega_CZRH(myzOpar.k_) + 18*evaluate_spline_Omega_N(myzOpar.k_) + 18*evaluate_spline_Omega_N2R(myzOpar.k_) + 72*evaluate_spline_Omega_NC2(myzOpar.k_) + 144*evaluate_spline_Omega_NCZH(myzOpar.k_) + 48*evaluate_spline_Omega_NH2(myzOpar.k_) + 16*evaluate_spline_Omega_NR2(myzOpar.k_) + 36*evaluate_spline_Omega_P(myzOpar.k_) + 72*evaluate_spline_Omega_P2N(myzOpar.k_) + 36*evaluate_spline_Omega_P2R(myzOpar.k_) + 16*evaluate_spline_Omega_P3(myzOpar.k_) + 48*evaluate_spline_Omega_PC2(myzOpar.k_) + 48*evaluate_spline_Omega_PH2(myzOpar.k_) + 144*evaluate_spline_Omega_PNR(myzOpar.k_) + 16*evaluate_spline_Omega_PR2(myzOpar.k_) + 144*evaluate_spline_Omega_PZ2(myzOpar.k_) + 288*evaluate_spline_Omega_PZCH(myzOpar.k_) + 9*evaluate_spline_Omega_R(myzOpar.k_) + evaluate_spline_Omega_R3(myzOpar.k_) + 6*evaluate_spline_Omega_RH2(myzOpar.k_) + 36*evaluate_spline_Omega_Z2R(myzOpar.k_));}
+
+double F2G1(zOpar myzOpar){
+    double value;
+    return 48*(2*evaluate_spline_Omega_C(myzOpar.k_) + 2*evaluate_spline_Omega_CH(myzOpar.k_) + 4*evaluate_spline_Omega_CZ(myzOpar.k_) + evaluate_spline_Omega_H(myzOpar.k_) + 2*evaluate_spline_Omega_Z(myzOpar.k_) + 2*evaluate_spline_Omega_ZH(myzOpar.k_));}
+
+double F2G2(zOpar myzOpar){
+    double value;
+    return 24*(6*evaluate_spline_Omega_C(myzOpar.k_) + 12*evaluate_spline_Omega_CH(myzOpar.k_) + 6*evaluate_spline_Omega_CR(myzOpar.k_) + 24*evaluate_spline_Omega_CZ(myzOpar.k_) + 3*evaluate_spline_Omega_H(myzOpar.k_) + 12*evaluate_spline_Omega_NC(myzOpar.k_) + 12*evaluate_spline_Omega_NH(myzOpar.k_) + 12*evaluate_spline_Omega_PC(myzOpar.k_) + 12*evaluate_spline_Omega_PH(myzOpar.k_) + 24*evaluate_spline_Omega_PZ(myzOpar.k_) + 2*evaluate_spline_Omega_RH(myzOpar.k_) + 6*evaluate_spline_Omega_Z(myzOpar.k_) + 12*evaluate_spline_Omega_ZH(myzOpar.k_) + 6*evaluate_spline_Omega_ZR(myzOpar.k_));}
+
+double F1H1(zOpar myzOpar){
+    double value;
+    return 96*(2*evaluate_spline_Omega_C(myzOpar.k_) + evaluate_spline_Omega_H(myzOpar.k_) + 2*evaluate_spline_Omega_Z(myzOpar.k_));}
+
+double F3H1(zOpar myzOpar){
+    double value;
+    return 192*(4*evaluate_spline_Omega_CZHp(myzOpar.k_) + 2*evaluate_spline_Omega_N(myzOpar.k_) + 4*evaluate_spline_Omega_P(myzOpar.k_) + evaluate_spline_Omega_R(myzOpar.k_));}
+
+double F2H2(zOpar myzOpar){
+    double value;
+    return 192*(6*evaluate_spline_Omega_C2R(myzOpar.k_) + 72*evaluate_spline_Omega_CZHp(myzOpar.k_) + 18*evaluate_spline_Omega_N(myzOpar.k_) + 12*evaluate_spline_Omega_NC2(myzOpar.k_) + 8*evaluate_spline_Omega_NH2(myzOpar.k_) + 36*evaluate_spline_Omega_P(myzOpar.k_) + 8*evaluate_spline_Omega_PC2(myzOpar.k_) + 8*evaluate_spline_Omega_PH2(myzOpar.k_) + 24*evaluate_spline_Omega_PZ2(myzOpar.k_) + 9*evaluate_spline_Omega_R(myzOpar.k_) + evaluate_spline_Omega_RH2(myzOpar.k_) + 6*evaluate_spline_Omega_Z2R(myzOpar.k_));}
+
+double F1H3(zOpar myzOpar){
+    double value;
+    return 2304*(6*evaluate_spline_Omega_C2R(myzOpar.k_) + 36*evaluate_spline_Omega_CZHp(myzOpar.k_) + 8*evaluate_spline_Omega_CZRH(myzOpar.k_) + 6*evaluate_spline_Omega_N(myzOpar.k_) + 12*evaluate_spline_Omega_NC2(myzOpar.k_) + 12*evaluate_spline_Omega_NCZH(myzOpar.k_) + 8*evaluate_spline_Omega_NH2(myzOpar.k_) + 12*evaluate_spline_Omega_P(myzOpar.k_) + 8*evaluate_spline_Omega_PC2(myzOpar.k_) + 8*evaluate_spline_Omega_PH2(myzOpar.k_) + 24*evaluate_spline_Omega_PZ2(myzOpar.k_) + 24*evaluate_spline_Omega_PZCH(myzOpar.k_) + 3*evaluate_spline_Omega_R(myzOpar.k_) + evaluate_spline_Omega_RH2(myzOpar.k_) + 6*evaluate_spline_Omega_Z2R(myzOpar.k_));}
+
+double G1H2(zOpar myzOpar){
+    double value;
+    return 576*(6*evaluate_spline_Omega_C(myzOpar.k_) + 6*evaluate_spline_Omega_C2H(myzOpar.k_) + 12*evaluate_spline_Omega_C2Z(myzOpar.k_) + 12*evaluate_spline_Omega_C2ZH(myzOpar.k_) + 4*evaluate_spline_Omega_C3(myzOpar.k_) + 6*evaluate_spline_Omega_CH(myzOpar.k_) + 4*evaluate_spline_Omega_CH2(myzOpar.k_) + 12*evaluate_spline_Omega_CZ(myzOpar.k_) + 12*evaluate_spline_Omega_CZ2(myzOpar.k_) + 12*evaluate_spline_Omega_CZ2H(myzOpar.k_) + 8*evaluate_spline_Omega_CZH2(myzOpar.k_) + 3*evaluate_spline_Omega_H(myzOpar.k_) + evaluate_spline_Omega_H3(myzOpar.k_) + 6*evaluate_spline_Omega_Z(myzOpar.k_) + 6*evaluate_spline_Omega_Z2H(myzOpar.k_) + 4*evaluate_spline_Omega_Z3(myzOpar.k_) + 6*evaluate_spline_Omega_ZH(myzOpar.k_) + 4*evaluate_spline_Omega_ZH2(myzOpar.k_));}
+
+double G2H2(zOpar myzOpar){
+    double value;
+    return 288*(18*evaluate_spline_Omega_C(myzOpar.k_) + 36*evaluate_spline_Omega_C2H(myzOpar.k_) + 72*evaluate_spline_Omega_C2Z(myzOpar.k_) + 72*evaluate_spline_Omega_C2ZH(myzOpar.k_) + 12*evaluate_spline_Omega_C3(myzOpar.k_) + 36*evaluate_spline_Omega_CH(myzOpar.k_) + 24*evaluate_spline_Omega_CH2(myzOpar.k_) + 18*evaluate_spline_Omega_CR(myzOpar.k_) + 8*evaluate_spline_Omega_CR2(myzOpar.k_) + 24*evaluate_spline_Omega_CRH(myzOpar.k_) + 72*evaluate_spline_Omega_CZ(myzOpar.k_) + 72*evaluate_spline_Omega_CZ2(myzOpar.k_) + 72*evaluate_spline_Omega_CZ2H(myzOpar.k_) + 48*evaluate_spline_Omega_CZH2(myzOpar.k_) + 72*evaluate_spline_Omega_CZR(myzOpar.k_) + 9*evaluate_spline_Omega_H(myzOpar.k_) + 3*evaluate_spline_Omega_H3(myzOpar.k_) + 36*evaluate_spline_Omega_NC(myzOpar.k_) + 144*evaluate_spline_Omega_NCH(myzOpar.k_) + 72*evaluate_spline_Omega_NCR(myzOpar.k_) + 36*evaluate_spline_Omega_NH(myzOpar.k_) + 24*evaluate_spline_Omega_NRH(myzOpar.k_) + 36*evaluate_spline_Omega_NZH(myzOpar.k_) + 36*evaluate_spline_Omega_NZR(myzOpar.k_) + 24*evaluate_spline_Omega_P2C(myzOpar.k_) + 36*evaluate_spline_Omega_P2H(myzOpar.k_) + 72*evaluate_spline_Omega_P2Z(myzOpar.k_) + 36*evaluate_spline_Omega_PC(myzOpar.k_) + 72*evaluate_spline_Omega_PCH(myzOpar.k_) + 36*evaluate_spline_Omega_PCR(myzOpar.k_) + 36*evaluate_spline_Omega_PH(myzOpar.k_) + 72*evaluate_spline_Omega_PNC(myzOpar.k_) + 144*evaluate_spline_Omega_PNH(myzOpar.k_) + 24*evaluate_spline_Omega_PRH(myzOpar.k_) + 72*evaluate_spline_Omega_PZ(myzOpar.k_) + 144*evaluate_spline_Omega_PZC(myzOpar.k_) + 144*evaluate_spline_Omega_PZH(myzOpar.k_) + 72*evaluate_spline_Omega_PZR(myzOpar.k_) + 2*evaluate_spline_Omega_R2H(myzOpar.k_) + 6*evaluate_spline_Omega_RH(myzOpar.k_) + 18*evaluate_spline_Omega_Z(myzOpar.k_) + 36*evaluate_spline_Omega_Z2H(myzOpar.k_) + 12*evaluate_spline_Omega_Z3(myzOpar.k_) + 36*evaluate_spline_Omega_ZH(myzOpar.k_) + 24*evaluate_spline_Omega_ZH2(myzOpar.k_) + 18*evaluate_spline_Omega_ZR(myzOpar.k_) + 8*evaluate_spline_Omega_ZR2(myzOpar.k_) + 24*evaluate_spline_Omega_ZRH(myzOpar.k_));}
+
+double F1G1H1(zOpar myzOpar){
+    double value;
+    return 192*(6*evaluate_spline_Omega_C(myzOpar.k_) + 3*evaluate_spline_Omega_C2H(myzOpar.k_) + 6*evaluate_spline_Omega_C2Z(myzOpar.k_) + 6*evaluate_spline_Omega_CH(myzOpar.k_) + 2*evaluate_spline_Omega_CH2(myzOpar.k_) + 12*evaluate_spline_Omega_CZ(myzOpar.k_) + 6*evaluate_spline_Omega_CZ2(myzOpar.k_) + 3*evaluate_spline_Omega_H(myzOpar.k_) + 6*evaluate_spline_Omega_Z(myzOpar.k_) + 3*evaluate_spline_Omega_Z2H(myzOpar.k_) + 6*evaluate_spline_Omega_ZH(myzOpar.k_) + 2*evaluate_spline_Omega_ZH2(myzOpar.k_));}
+
+double F1G2H1(zOpar myzOpar){
+    double value;
+    return 288*(6*evaluate_spline_Omega_C(myzOpar.k_) + 6*evaluate_spline_Omega_C2H(myzOpar.k_) + 12*evaluate_spline_Omega_C2Z(myzOpar.k_) + 12*evaluate_spline_Omega_CH(myzOpar.k_) + 4*evaluate_spline_Omega_CH2(myzOpar.k_) + 6*evaluate_spline_Omega_CR(myzOpar.k_) + 4*evaluate_spline_Omega_CRH(myzOpar.k_) + 24*evaluate_spline_Omega_CZ(myzOpar.k_) + 12*evaluate_spline_Omega_CZ2(myzOpar.k_) + 12*evaluate_spline_Omega_CZR(myzOpar.k_) + 3*evaluate_spline_Omega_H(myzOpar.k_) + 12*evaluate_spline_Omega_NC(myzOpar.k_) + 24*evaluate_spline_Omega_NCH(myzOpar.k_) + 12*evaluate_spline_Omega_NH(myzOpar.k_) + 6*evaluate_spline_Omega_NZH(myzOpar.k_) + 12*evaluate_spline_Omega_PC(myzOpar.k_) + 12*evaluate_spline_Omega_PCH(myzOpar.k_) + 12*evaluate_spline_Omega_PH(myzOpar.k_) + 24*evaluate_spline_Omega_PZ(myzOpar.k_) + 24*evaluate_spline_Omega_PZC(myzOpar.k_) + 24*evaluate_spline_Omega_PZH(myzOpar.k_) + 2*evaluate_spline_Omega_RH(myzOpar.k_) + 6*evaluate_spline_Omega_Z(myzOpar.k_) + 6*evaluate_spline_Omega_Z2H(myzOpar.k_) + 12*evaluate_spline_Omega_ZH(myzOpar.k_) + 4*evaluate_spline_Omega_ZH2(myzOpar.k_) + 6*evaluate_spline_Omega_ZR(myzOpar.k_) + 4*evaluate_spline_Omega_ZRH(myzOpar.k_));}
+
+double Glike(zOpar myzOpar){
+    //printf("Omega_G: %f\n", evaluate_spline_Omega_G(myzOpar.k_));
+    double value;
+    value = 2*pow(myzOpar.A,2)*pow(1 + 3*myzOpar.A*myzOpar.GNL,4)*evaluate_spline_Omega_G(myzOpar.k_) + 8*pow(myzOpar.A,3)*pow(1 + 3*myzOpar.A*myzOpar.GNL,2)*pow(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL,2)*evaluate_spline_Omega_H(myzOpar.k_) + 24*pow(myzOpar.A,4)*pow(myzOpar.GNL,2)*pow(1 + 3*myzOpar.A*myzOpar.GNL,2)*evaluate_spline_Omega_H2(myzOpar.k_) + 96*pow(myzOpar.A,5)*pow(myzOpar.HNL + 3*myzOpar.A*myzOpar.GNL*myzOpar.HNL,2)*evaluate_spline_Omega_H3(myzOpar.k_) + 8*pow(myzOpar.A,4)*pow(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL,4)*evaluate_spline_Omega_R(myzOpar.k_) + 72*pow(myzOpar.A,6)*pow(myzOpar.GNL,4)*evaluate_spline_Omega_R2(myzOpar.k_) + 576*pow(myzOpar.A,7)*pow(myzOpar.GNL,2)*pow(myzOpar.HNL,2)*evaluate_spline_Omega_R2H(myzOpar.k_) + 1152*pow(myzOpar.A,8)*pow(myzOpar.HNL,4)*evaluate_spline_Omega_R3(myzOpar.k_) + 48*pow(myzOpar.A,5)*pow(myzOpar.GNL,2)*pow(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL,2)*evaluate_spline_Omega_RH(myzOpar.k_) + 192*pow(myzOpar.A,6)*pow(myzOpar.HNL,2)*pow(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL,2)*evaluate_spline_Omega_RH2(myzOpar.k_);
+    return value;
+    }
+
+double Clike(zOpar myzOpar){
+    double value;
+    return 16*pow(myzOpar.A,3)*pow(1 + 3*myzOpar.A*myzOpar.GNL,2)*pow(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL,2)*evaluate_spline_Omega_C(myzOpar.k_) + 72*pow(myzOpar.A,4)*pow(myzOpar.GNL,2)*pow(1 + 3*myzOpar.A*myzOpar.GNL,2)*evaluate_spline_Omega_C2(myzOpar.k_) + 576*pow(myzOpar.A,5)*myzOpar.GNL*(1 + 3*myzOpar.A*myzOpar.GNL)*myzOpar.HNL*(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL)*evaluate_spline_Omega_C2H(myzOpar.k_) + 1152*pow(myzOpar.A,6)*pow(myzOpar.HNL,2)*pow(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL,2)*evaluate_spline_Omega_C2R(myzOpar.k_) + 384*pow(myzOpar.A,5)*pow(myzOpar.HNL + 3*myzOpar.A*myzOpar.GNL*myzOpar.HNL,2)*evaluate_spline_Omega_C3(myzOpar.k_) + 96*pow(myzOpar.A,4)*myzOpar.GNL*(1 + 3*myzOpar.A*myzOpar.GNL)*pow(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL,2)*evaluate_spline_Omega_CH(myzOpar.k_) + 384*pow(myzOpar.A,5)*myzOpar.GNL*(1 + 3*myzOpar.A*myzOpar.GNL)*myzOpar.HNL*(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL)*evaluate_spline_Omega_CH2(myzOpar.k_) + 144*pow(myzOpar.A,5)*pow(myzOpar.GNL,2)*pow(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL,2)*evaluate_spline_Omega_CR(myzOpar.k_) + 2304*pow(myzOpar.A,7)*pow(myzOpar.GNL,2)*pow(myzOpar.HNL,2)*evaluate_spline_Omega_CR2(myzOpar.k_) + 1152*pow(myzOpar.A,6)*pow(myzOpar.GNL,2)*myzOpar.HNL*(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL)*evaluate_spline_Omega_CRH(myzOpar.k_);}
+
+double Zlike(zOpar myzOpar){
+    double value;
+    return 16*pow(myzOpar.A,3)*pow(1 + 3*myzOpar.A*myzOpar.GNL,2)*pow(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL,2)*evaluate_spline_Omega_Z(myzOpar.k_) + 72*pow(myzOpar.A,4)*pow(myzOpar.GNL,2)*pow(1 + 3*myzOpar.A*myzOpar.GNL,2)*evaluate_spline_Omega_Z2(myzOpar.k_) + 576*pow(myzOpar.A,5)*myzOpar.GNL*(1 + 3*myzOpar.A*myzOpar.GNL)*myzOpar.HNL*(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL)*evaluate_spline_Omega_Z2H(myzOpar.k_) + 1152*pow(myzOpar.A,6)*pow(myzOpar.HNL,2)*pow(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL,2)*evaluate_spline_Omega_Z2R(myzOpar.k_) + 384*pow(myzOpar.A,5)*pow(myzOpar.HNL + 3*myzOpar.A*myzOpar.GNL*myzOpar.HNL,2)*evaluate_spline_Omega_Z3(myzOpar.k_) + 96*pow(myzOpar.A,4)*myzOpar.GNL*(1 + 3*myzOpar.A*myzOpar.GNL)*pow(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL,2)*evaluate_spline_Omega_ZH(myzOpar.k_) + 384*pow(myzOpar.A,5)*myzOpar.GNL*(1 + 3*myzOpar.A*myzOpar.GNL)*myzOpar.HNL*(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL)*evaluate_spline_Omega_ZH2(myzOpar.k_) + 144*pow(myzOpar.A,5)*pow(myzOpar.GNL,2)*pow(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL,2)*evaluate_spline_Omega_ZR(myzOpar.k_) + 2304*pow(myzOpar.A,7)*pow(myzOpar.GNL,2)*pow(myzOpar.HNL,2)*evaluate_spline_Omega_ZR2(myzOpar.k_) + 1152*pow(myzOpar.A,6)*pow(myzOpar.GNL,2)*myzOpar.HNL*(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL)*evaluate_spline_Omega_ZRH(myzOpar.k_);}
+
+double Plike(zOpar myzOpar){
+    double value;
+    return 32*pow(myzOpar.A,4)*pow(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL,4)*evaluate_spline_Omega_P(myzOpar.k_) + 648*pow(myzOpar.A,6)*pow(myzOpar.GNL,4)*evaluate_spline_Omega_P2(myzOpar.k_) + 6912*pow(myzOpar.A,7)*pow(myzOpar.GNL,2)*pow(myzOpar.HNL,2)*evaluate_spline_Omega_P2C(myzOpar.k_) + 10368*pow(myzOpar.A,7)*pow(myzOpar.GNL,2)*pow(myzOpar.HNL,2)*evaluate_spline_Omega_P2H(myzOpar.k_) + 41472*pow(myzOpar.A,8)*pow(myzOpar.HNL,4)*evaluate_spline_Omega_P2R(myzOpar.k_) + 18432*pow(myzOpar.A,8)*pow(myzOpar.HNL,4)*evaluate_spline_Omega_P3(myzOpar.k_) + 288*pow(myzOpar.A,5)*pow(myzOpar.GNL,2)*pow(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL,2)*evaluate_spline_Omega_PC(myzOpar.k_) + 1536*pow(myzOpar.A,6)*pow(myzOpar.HNL,2)*pow(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL,2)*evaluate_spline_Omega_PC2(myzOpar.k_) + 3456*pow(myzOpar.A,6)*pow(myzOpar.GNL,2)*myzOpar.HNL*(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL)*evaluate_spline_Omega_PCH(myzOpar.k_) + 10368*pow(myzOpar.A,7)*pow(myzOpar.GNL,2)*pow(myzOpar.HNL,2)*evaluate_spline_Omega_PCR(myzOpar.k_) + 288*pow(myzOpar.A,5)*pow(myzOpar.GNL,2)*pow(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL,2)*evaluate_spline_Omega_PH(myzOpar.k_) + 1536*pow(myzOpar.A,6)*pow(myzOpar.HNL,2)*pow(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL,2)*evaluate_spline_Omega_PH2(myzOpar.k_) + 648*pow(myzOpar.A,6)*pow(myzOpar.GNL,4)*evaluate_spline_Omega_PR(myzOpar.k_) + 18432*pow(myzOpar.A,8)*pow(myzOpar.HNL,4)*evaluate_spline_Omega_PR2(myzOpar.k_) + 6912*pow(myzOpar.A,7)*pow(myzOpar.GNL,2)*pow(myzOpar.HNL,2)*evaluate_spline_Omega_PRH(myzOpar.k_);}
+
+double Nlike(zOpar myzOpar){
+    double value;
+    return 16*pow(myzOpar.A,4)*pow(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL,4)*evaluate_spline_Omega_N(myzOpar.k_) + 20736*pow(myzOpar.A,8)*pow(myzOpar.HNL,4)*evaluate_spline_Omega_N2R(myzOpar.k_) + 288*pow(myzOpar.A,5)*pow(myzOpar.GNL,2)*pow(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL,2)*evaluate_spline_Omega_NH(myzOpar.k_) + 1536*pow(myzOpar.A,6)*pow(myzOpar.HNL,2)*pow(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL,2)*evaluate_spline_Omega_NH2(myzOpar.k_) + 648*pow(myzOpar.A,6)*pow(myzOpar.GNL,4)*evaluate_spline_Omega_NR(myzOpar.k_) + 18432*pow(myzOpar.A,8)*pow(myzOpar.HNL,4)*evaluate_spline_Omega_NR2(myzOpar.k_) + 6912*pow(myzOpar.A,7)*pow(myzOpar.GNL,2)*pow(myzOpar.HNL,2)*evaluate_spline_Omega_NRH(myzOpar.k_) + 1728*pow(myzOpar.A,6)*pow(myzOpar.GNL,2)*myzOpar.HNL*(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL)*evaluate_spline_Omega_NZH(myzOpar.k_) + 10368*pow(myzOpar.A,7)*pow(myzOpar.GNL,2)*pow(myzOpar.HNL,2)*evaluate_spline_Omega_NZR(myzOpar.k_);}
+
+double CZlike(zOpar myzOpar){
+    double value;
+    return 1152*pow(myzOpar.A,5)*myzOpar.GNL*(1 + 3*myzOpar.A*myzOpar.GNL)*myzOpar.HNL*(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL)*evaluate_spline_Omega_C2Z(myzOpar.k_) + 6912*pow(myzOpar.A,6)*myzOpar.GNL*(1 + 3*myzOpar.A*myzOpar.GNL)*pow(myzOpar.HNL,2)*evaluate_spline_Omega_C2ZH(myzOpar.k_) + 192*pow(myzOpar.A,4)*myzOpar.GNL*(1 + 3*myzOpar.A*myzOpar.GNL)*pow(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL,2)*evaluate_spline_Omega_CZ(myzOpar.k_) + 1152*pow(myzOpar.A,5)*myzOpar.GNL*(1 + 3*myzOpar.A*myzOpar.GNL)*myzOpar.HNL*(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL)*evaluate_spline_Omega_CZ2(myzOpar.k_) + 6912*pow(myzOpar.A,6)*myzOpar.GNL*(1 + 3*myzOpar.A*myzOpar.GNL)*pow(myzOpar.HNL,2)*evaluate_spline_Omega_CZ2H(myzOpar.k_) + 864*pow(myzOpar.A,5)*pow(myzOpar.GNL,3)*(1 + 3*myzOpar.A*myzOpar.GNL)*evaluate_spline_Omega_CZH(myzOpar.k_) + 4608*pow(myzOpar.A,6)*myzOpar.GNL*(1 + 3*myzOpar.A*myzOpar.GNL)*pow(myzOpar.HNL,2)*evaluate_spline_Omega_CZH2(myzOpar.k_) + 768*pow(myzOpar.A,5)*myzOpar.HNL*pow(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL,3)*evaluate_spline_Omega_CZHp(myzOpar.k_) + 3456*pow(myzOpar.A,6)*pow(myzOpar.GNL,2)*myzOpar.HNL*(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL)*evaluate_spline_Omega_CZR(myzOpar.k_) + 18432*pow(myzOpar.A,7)*pow(myzOpar.HNL,3)*(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL)*evaluate_spline_Omega_CZRH(myzOpar.k_);}
+
+double PZlike(zOpar myzOpar){
+    double value;
+    return 20736*pow(myzOpar.A,7)*pow(myzOpar.GNL,2)*pow(myzOpar.HNL,2)*evaluate_spline_Omega_P2Z(myzOpar.k_) + 576*pow(myzOpar.A,5)*pow(myzOpar.GNL,2)*pow(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL,2)*evaluate_spline_Omega_PZ(myzOpar.k_) + 4608*pow(myzOpar.A,6)*pow(myzOpar.HNL,2)*pow(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL,2)*evaluate_spline_Omega_PZ2(myzOpar.k_) + 6912*pow(myzOpar.A,6)*pow(myzOpar.GNL,2)*myzOpar.HNL*(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL)*evaluate_spline_Omega_PZC(myzOpar.k_) + 55296*pow(myzOpar.A,7)*pow(myzOpar.HNL,3)*(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL)*evaluate_spline_Omega_PZCH(myzOpar.k_) + 6912*pow(myzOpar.A,6)*pow(myzOpar.GNL,2)*myzOpar.HNL*(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL)*evaluate_spline_Omega_PZH(myzOpar.k_) + 20736*pow(myzOpar.A,7)*pow(myzOpar.GNL,2)*pow(myzOpar.HNL,2)*evaluate_spline_Omega_PZR(myzOpar.k_);}
+
+double NClike(zOpar myzOpar){
+    double value;
+    return 288*pow(myzOpar.A,5)*pow(myzOpar.GNL,2)*pow(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL,2)*evaluate_spline_Omega_NC(myzOpar.k_) + 2304*pow(myzOpar.A,6)*pow(myzOpar.HNL,2)*pow(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL,2)*evaluate_spline_Omega_NC2(myzOpar.k_) + 6912*pow(myzOpar.A,6)*pow(myzOpar.GNL,2)*myzOpar.HNL*(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL)*evaluate_spline_Omega_NCH(myzOpar.k_) + 20736*pow(myzOpar.A,7)*pow(myzOpar.GNL,2)*pow(myzOpar.HNL,2)*evaluate_spline_Omega_NCR(myzOpar.k_) + 27648*pow(myzOpar.A,7)*pow(myzOpar.HNL,3)*(myzOpar.FNL + 6*myzOpar.A*myzOpar.HNL)*evaluate_spline_Omega_NCZH(myzOpar.k_);}
+
+double PNlike(zOpar myzOpar){
+    double value;
+    return 82944*pow(myzOpar.A,8)*pow(myzOpar.HNL,4)*evaluate_spline_Omega_P2N(myzOpar.k_) + 1296*pow(myzOpar.A,6)*pow(myzOpar.GNL,4)*evaluate_spline_Omega_PN(myzOpar.k_) + 20736*pow(myzOpar.A,7)*pow(myzOpar.GNL,2)*pow(myzOpar.HNL,2)*evaluate_spline_Omega_PNC(myzOpar.k_) + 41472*pow(myzOpar.A,7)*pow(myzOpar.GNL,2)*pow(myzOpar.HNL,2)*evaluate_spline_Omega_PNH(myzOpar.k_) + 165888*pow(myzOpar.A,8)*pow(myzOpar.HNL,4)*evaluate_spline_Omega_PNR(myzOpar.k_);}
+
+
+double total(zOpar myzOpar){
+    double value; 
+        value = Glike(myzOpar) + Clike(myzOpar) + Zlike(myzOpar) + Plike(myzOpar) + Nlike(myzOpar) + CZlike(myzOpar) + PZlike(myzOpar) + NClike(myzOpar) + PNlike(myzOpar);
+        return value;}
+
+double tot_test(zOpar myzOpar){
+    double value; 
+        value = (pow(myzOpar.A,3)*(pow(myzOpar.FNL,2)*F2(myzOpar) + myzOpar.GNL*G1(myzOpar)) + pow(myzOpar.A,4)*(myzOpar.FNL*myzOpar.HNL*F1H1(myzOpar) + pow(myzOpar.FNL,2)*myzOpar.GNL*F2G1(myzOpar) + pow(myzOpar.FNL,4)*F4(myzOpar) + pow(myzOpar.GNL,2)*G2(myzOpar)) + pow(myzOpar.A,7)*(myzOpar.FNL*pow(myzOpar.HNL,3)*F1H3(myzOpar) + pow(myzOpar.GNL,2)*pow(myzOpar.HNL,2)*G2H2(myzOpar)) + pow(myzOpar.A,6)*(myzOpar.FNL*pow(myzOpar.GNL,2)*myzOpar.HNL*F1G2H1(myzOpar) + pow(myzOpar.FNL,2)*pow(myzOpar.HNL,2)*F2H2(myzOpar) + myzOpar.GNL*pow(myzOpar.HNL,2)*G1H2(myzOpar) + pow(myzOpar.GNL,4)*G4(myzOpar)) + pow(myzOpar.A,2)*Gs(myzOpar) + pow(myzOpar.A,5)*(myzOpar.FNL*myzOpar.GNL*myzOpar.HNL*F1G1H1(myzOpar) + pow(myzOpar.FNL,2)*pow(myzOpar.GNL,2)*F2G2(myzOpar) + pow(myzOpar.FNL,3)*myzOpar.HNL*F3H1(myzOpar) + pow(myzOpar.GNL,3)*G3(myzOpar) + pow(myzOpar.HNL,2)*H2(myzOpar)) + pow(myzOpar.A,8)*pow(myzOpar.HNL,4)*H4(myzOpar));
+        return value;}
+
+double ob(zOpar myzOpar){
+    double value;
+    return 4.2e-5 * total(myzOpar);}
+
+double ng1(zOpar myzOpar){
+    double value;
+        value = (pow(myzOpar.A,3)*(6*myzOpar.FNL*myzOpar.GNLlss*F2(myzOpar) + 4*myzOpar.HNLlsss*G1(myzOpar) + myzOpar.FNLls*(4*pow(myzOpar.FNL,2)*F2(myzOpar) + 6*myzOpar.GNL*G1(myzOpar))) + pow(myzOpar.A,7)*(3*myzOpar.GNLlss*pow(myzOpar.HNL,3)*F1H3(myzOpar) + 8*myzOpar.GNL*pow(myzOpar.HNL,2)*myzOpar.HNLlsss*G2H2(myzOpar)) + pow(myzOpar.A,4)*(3*myzOpar.GNLlss*(myzOpar.HNL*F1H1(myzOpar) + 2*myzOpar.FNL*myzOpar.GNL*F2G1(myzOpar) + 4*pow(myzOpar.FNL,3)*F4(myzOpar)) + myzOpar.HNLlsss*(4*pow(myzOpar.FNL,2)*F2G1(myzOpar) + 8*myzOpar.GNL*G2(myzOpar)) + myzOpar.FNLls*(4*myzOpar.FNL*myzOpar.HNL*F1H1(myzOpar) + 2*pow(myzOpar.FNL,2)*myzOpar.GNL*F2G1(myzOpar) + 4*pow(myzOpar.GNL,2)*G2(myzOpar))) + pow(myzOpar.A,6)*(3*myzOpar.GNLlss*myzOpar.HNL*(pow(myzOpar.GNL,2)*F1G2H1(myzOpar) + 2*myzOpar.FNL*myzOpar.HNL*F2H2(myzOpar)) + 2*myzOpar.FNLls*myzOpar.GNL*pow(myzOpar.HNL,2)*G1H2(myzOpar) + 4*myzOpar.HNLlsss*(2*myzOpar.FNL*myzOpar.GNL*myzOpar.HNL*F1G2H1(myzOpar) + pow(myzOpar.HNL,2)*G1H2(myzOpar) + 4*pow(myzOpar.GNL,3)*G4(myzOpar))) + 8*pow(myzOpar.A,2)*myzOpar.FNLls*Gs(myzOpar) + pow(myzOpar.A,5)*(myzOpar.GNLlss*(3*myzOpar.GNL*myzOpar.HNL*F1G1H1(myzOpar) + 6*myzOpar.FNL*pow(myzOpar.GNL,2)*F2G2(myzOpar) + 9*pow(myzOpar.FNL,2)*myzOpar.HNL*F3H1(myzOpar)) + 4*myzOpar.HNLlsss*(myzOpar.FNL*myzOpar.HNL*F1G1H1(myzOpar) + 2*pow(myzOpar.FNL,2)*myzOpar.GNL*F2G2(myzOpar) + 3*pow(myzOpar.GNL,2)*G3(myzOpar)) + 2*myzOpar.FNLls*(myzOpar.FNL*myzOpar.GNL*myzOpar.HNL*F1G1H1(myzOpar) + pow(myzOpar.GNL,3)*G3(myzOpar) + 2*pow(myzOpar.HNL,2)*H2(myzOpar))));
+        return value;}
+
+double ng2(zOpar myzOpar){
+    double value;
+        value = (pow(myzOpar.A,3)*(9*pow(myzOpar.GNLlss,2)*F2(myzOpar) + 24*myzOpar.FNL*myzOpar.HNLllss*F2(myzOpar) + 4*pow(myzOpar.FNLls,2)*(pow(myzOpar.FNL,2)*F2(myzOpar) + 3*myzOpar.GNL*G1(myzOpar)) + 6*myzOpar.GNLlls*(2*pow(myzOpar.FNL,2)*F2(myzOpar) + 3*myzOpar.GNL*G1(myzOpar)) + myzOpar.FNLls*(24*myzOpar.FNL*myzOpar.GNLlss*F2(myzOpar) + 24*myzOpar.HNLlsss*G1(myzOpar))) + pow(myzOpar.A,7)*(12*pow(myzOpar.HNL,3)*myzOpar.HNLllss*F1H3(myzOpar) + 16*pow(myzOpar.HNL,2)*pow(myzOpar.HNLlsss,2)*G2H2(myzOpar)) + pow(myzOpar.A,4)*(24*myzOpar.FNL*myzOpar.GNLlss*myzOpar.HNLlsss*F2G1(myzOpar) + 9*pow(myzOpar.GNLlss,2)*(myzOpar.GNL*F2G1(myzOpar) + 6*pow(myzOpar.FNL,2)*F4(myzOpar)) + 12*myzOpar.HNLllss*(myzOpar.HNL*F1H1(myzOpar) + 2*myzOpar.FNL*myzOpar.GNL*F2G1(myzOpar) + 4*pow(myzOpar.FNL,3)*F4(myzOpar)) + 16*pow(myzOpar.HNLlsss,2)*G2(myzOpar) + 4*pow(myzOpar.FNLls,2)*(myzOpar.FNL*myzOpar.HNL*F1H1(myzOpar) + pow(myzOpar.GNL,2)*G2(myzOpar)) + 6*myzOpar.GNLlls*(2*myzOpar.FNL*myzOpar.HNL*F1H1(myzOpar) + pow(myzOpar.FNL,2)*myzOpar.GNL*F2G1(myzOpar) + 2*pow(myzOpar.GNL,2)*G2(myzOpar)) + myzOpar.FNLls*(12*myzOpar.GNLlss*(myzOpar.HNL*F1H1(myzOpar) + myzOpar.FNL*myzOpar.GNL*F2G1(myzOpar)) + 8*myzOpar.HNLlsss*(pow(myzOpar.FNL,2)*F2G1(myzOpar) + 4*myzOpar.GNL*G2(myzOpar)))) + pow(myzOpar.A,6)*(24*myzOpar.GNL*myzOpar.GNLlss*myzOpar.HNL*myzOpar.HNLlsss*F1G2H1(myzOpar) + 9*pow(myzOpar.GNLlss,2)*pow(myzOpar.HNL,2)*F2H2(myzOpar) + 12*myzOpar.HNL*myzOpar.HNLllss*(pow(myzOpar.GNL,2)*F1G2H1(myzOpar) + 2*myzOpar.FNL*myzOpar.HNL*F2H2(myzOpar)) + 6*myzOpar.GNL*myzOpar.GNLlls*pow(myzOpar.HNL,2)*G1H2(myzOpar) + 8*myzOpar.FNLls*pow(myzOpar.HNL,2)*myzOpar.HNLlsss*G1H2(myzOpar) + 16*pow(myzOpar.HNLlsss,2)*(myzOpar.FNL*myzOpar.HNL*F1G2H1(myzOpar) + 6*pow(myzOpar.GNL,2)*G4(myzOpar))) + pow(myzOpar.A,2)*(24*pow(myzOpar.FNLls,2)*Gs(myzOpar) + 24*myzOpar.GNLlls*Gs(myzOpar)) + pow(myzOpar.A,5)*(12*myzOpar.GNLlss*myzOpar.HNLlsss*(myzOpar.HNL*F1G1H1(myzOpar) + 4*myzOpar.FNL*myzOpar.GNL*F2G2(myzOpar)) + 9*pow(myzOpar.GNLlss,2)*(pow(myzOpar.GNL,2)*F2G2(myzOpar) + 3*myzOpar.FNL*myzOpar.HNL*F3H1(myzOpar)) + 12*myzOpar.HNLllss*(myzOpar.GNL*myzOpar.HNL*F1G1H1(myzOpar) + 2*myzOpar.FNL*pow(myzOpar.GNL,2)*F2G2(myzOpar) + 3*pow(myzOpar.FNL,2)*myzOpar.HNL*F3H1(myzOpar)) + 16*pow(myzOpar.HNLlsss,2)*(pow(myzOpar.FNL,2)*F2G2(myzOpar) + 3*myzOpar.GNL*G3(myzOpar)) + myzOpar.FNLls*(6*myzOpar.GNL*myzOpar.GNLlss*myzOpar.HNL*F1G1H1(myzOpar) + 8*myzOpar.HNLlsss*(myzOpar.FNL*myzOpar.HNL*F1G1H1(myzOpar) + 3*pow(myzOpar.GNL,2)*G3(myzOpar))) + 4*pow(myzOpar.FNLls,2)*pow(myzOpar.HNL,2)*H2(myzOpar) + 6*myzOpar.GNLlls*(myzOpar.FNL*myzOpar.GNL*myzOpar.HNL*F1G1H1(myzOpar) + pow(myzOpar.GNL,3)*G3(myzOpar) + 2*pow(myzOpar.HNL,2)*H2(myzOpar))));
+        return value;}
+
+double ng3(zOpar myzOpar){
+    double value;
+        value = (pow(myzOpar.A,3)*(myzOpar.GNLlss*(72*myzOpar.FNL*myzOpar.GNLlls*F2(myzOpar) + 72*myzOpar.HNLllss*F2(myzOpar)) + 8*pow(myzOpar.FNLls,3)*myzOpar.GNL*G1(myzOpar) + 72*myzOpar.GNLlls*myzOpar.HNLlsss*G1(myzOpar) + myzOpar.HNLllls*(48*pow(myzOpar.FNL,2)*F2(myzOpar) + 72*myzOpar.GNL*G1(myzOpar)) + pow(myzOpar.FNLls,2)*(24*myzOpar.FNL*myzOpar.GNLlss*F2(myzOpar) + 48*myzOpar.HNLlsss*G1(myzOpar)) + myzOpar.FNLls*(36*pow(myzOpar.GNLlss,2)*F2(myzOpar) + 96*myzOpar.FNL*myzOpar.HNLllss*F2(myzOpar) + 24*myzOpar.GNLlls*(pow(myzOpar.FNL,2)*F2(myzOpar) + 3*myzOpar.GNL*G1(myzOpar)))) + pow(myzOpar.A,4)*(36*pow(myzOpar.GNLlss,2)*myzOpar.HNLlsss*F2G1(myzOpar) + 96*myzOpar.FNL*myzOpar.HNLllss*myzOpar.HNLlsss*F2G1(myzOpar) + 108*myzOpar.FNL*pow(myzOpar.GNLlss,3)*F4(myzOpar) + myzOpar.GNLlss*(36*myzOpar.GNLlls*(myzOpar.HNL*F1H1(myzOpar) + myzOpar.FNL*myzOpar.GNL*F2G1(myzOpar)) + 72*myzOpar.HNLllss*(myzOpar.GNL*F2G1(myzOpar) + 6*pow(myzOpar.FNL,2)*F4(myzOpar))) + 24*myzOpar.GNLlls*myzOpar.HNLlsss*(pow(myzOpar.FNL,2)*F2G1(myzOpar) + 4*myzOpar.GNL*G2(myzOpar)) + 24*myzOpar.HNLllls*(2*myzOpar.FNL*myzOpar.HNL*F1H1(myzOpar) + pow(myzOpar.FNL,2)*myzOpar.GNL*F2G1(myzOpar) + 2*pow(myzOpar.GNL,2)*G2(myzOpar)) + pow(myzOpar.FNLls,2)*(12*myzOpar.GNLlss*myzOpar.HNL*F1H1(myzOpar) + 32*myzOpar.GNL*myzOpar.HNLlsss*G2(myzOpar)) + myzOpar.FNLls*(18*myzOpar.GNL*pow(myzOpar.GNLlss,2)*F2G1(myzOpar) + 48*myzOpar.FNL*myzOpar.GNLlss*myzOpar.HNLlsss*F2G1(myzOpar) + 48*myzOpar.HNLllss*(myzOpar.HNL*F1H1(myzOpar) + myzOpar.FNL*myzOpar.GNL*F2G1(myzOpar)) + 64*pow(myzOpar.HNLlsss,2)*G2(myzOpar) + 24*myzOpar.GNLlls*(myzOpar.FNL*myzOpar.HNL*F1H1(myzOpar) + pow(myzOpar.GNL,2)*G2(myzOpar)))) + pow(myzOpar.A,6)*(96*myzOpar.GNL*myzOpar.HNL*myzOpar.HNLllss*myzOpar.HNLlsss*F1G2H1(myzOpar) + myzOpar.GNLlss*(48*myzOpar.HNL*pow(myzOpar.HNLlsss,2)*F1G2H1(myzOpar) + 72*pow(myzOpar.HNL,2)*myzOpar.HNLllss*F2H2(myzOpar)) + 24*myzOpar.GNL*pow(myzOpar.HNL,2)*myzOpar.HNLllls*G1H2(myzOpar) + 24*myzOpar.GNLlls*pow(myzOpar.HNL,2)*myzOpar.HNLlsss*G1H2(myzOpar) + 256*myzOpar.GNL*pow(myzOpar.HNLlsss,3)*G4(myzOpar)) + pow(myzOpar.A,2)*(32*pow(myzOpar.FNLls,3)*Gs(myzOpar) + 144*myzOpar.FNLls*myzOpar.GNLlls*Gs(myzOpar) + 96*myzOpar.HNLllls*Gs(myzOpar)) + pow(myzOpar.A,5)*(72*myzOpar.GNL*pow(myzOpar.GNLlss,2)*myzOpar.HNLlsss*F2G2(myzOpar) + 48*myzOpar.HNLllss*myzOpar.HNLlsss*(myzOpar.HNL*F1G1H1(myzOpar) + 4*myzOpar.FNL*myzOpar.GNL*F2G2(myzOpar)) + 27*pow(myzOpar.GNLlss,3)*myzOpar.HNL*F3H1(myzOpar) + myzOpar.GNLlss*(18*myzOpar.GNL*myzOpar.GNLlls*myzOpar.HNL*F1G1H1(myzOpar) + 96*myzOpar.FNL*pow(myzOpar.HNLlsss,2)*F2G2(myzOpar) + 72*myzOpar.HNLllss*(pow(myzOpar.GNL,2)*F2G2(myzOpar) + 3*myzOpar.FNL*myzOpar.HNL*F3H1(myzOpar))) + 64*pow(myzOpar.HNLlsss,3)*G3(myzOpar) + 24*myzOpar.GNLlls*myzOpar.HNLlsss*(myzOpar.FNL*myzOpar.HNL*F1G1H1(myzOpar) + 3*pow(myzOpar.GNL,2)*G3(myzOpar)) + 24*myzOpar.HNLllls*(myzOpar.FNL*myzOpar.GNL*myzOpar.HNL*F1G1H1(myzOpar) + pow(myzOpar.GNL,3)*G3(myzOpar) + 2*pow(myzOpar.HNL,2)*H2(myzOpar)) + myzOpar.FNLls*(24*myzOpar.GNL*myzOpar.HNL*myzOpar.HNLllss*F1G1H1(myzOpar) + 24*myzOpar.GNLlss*myzOpar.HNL*myzOpar.HNLlsss*F1G1H1(myzOpar) + 96*myzOpar.GNL*pow(myzOpar.HNLlsss,2)*G3(myzOpar) + 24*myzOpar.GNLlls*pow(myzOpar.HNL,2)*H2(myzOpar))));
+        return value;
+}
+
+// int main() {
+//     spline_function_initial_all();
+//     zOpar myzOpar_my;
+//     myzOpar_my.sigma = 1.0;
+//     myzOpar_my.k_ = 1.0;
+//     myzOpar_my.A = 1.0;
+//     myzOpar_my.nu_s = 1.0;
+//     myzOpar_my.FNL = 1.0;
+//     myzOpar_my.FNLls = myzOpar_my.FNL;
+//     myzOpar_my.GNL = 0.;
+//     myzOpar_my.GNLlss = myzOpar_my.GNL;
+//     myzOpar_my.GNLlls = myzOpar_my.GNL;
+//     myzOpar_my.HNL = 0.;
+//     myzOpar_my.HNLlsss = myzOpar_my.HNL;
+//     myzOpar_my.HNLllss = myzOpar_my.HNL;
+//     myzOpar_my.HNLllls = myzOpar_my.HNL;
+//     myzOpar_my.Fa = sqrt(myzOpar_my.FNL * myzOpar_my.FNL * myzOpar_my.A);
+//     myzOpar_my.Ga = fabs(myzOpar_my.GNL) * myzOpar_my.A;
+//     myzOpar_my.Ha = sqrt(myzOpar_my.HNL * myzOpar_my.HNL * myzOpar_my.A * myzOpar_my.A * myzOpar_my.A);
+//     printf("Define myzOpar_my successfully\n");
+//     printf("ob: %e\n", ob(myzOpar_my));
+//     printf("ng1: %e\n", ng1(myzOpar_my));
+//     printf("total: %e\n", total(myzOpar_my));
+//     printf("F1G2H1: %e\n", F1G2H1(myzOpar_my));
+
+//     return 0;
+// }

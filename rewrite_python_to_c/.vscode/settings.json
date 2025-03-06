@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "cmath": "c",
+        "gsl_interp.h": "c",
+        "type_traits": "c"
+    }
+}

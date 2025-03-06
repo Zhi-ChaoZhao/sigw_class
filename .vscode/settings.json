@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "gsl_spline.h": "c",
+        "stdio.h": "c",
+        "perturbations.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
+}

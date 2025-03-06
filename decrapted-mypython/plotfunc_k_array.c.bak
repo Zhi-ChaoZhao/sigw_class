@@ -1,0 +1,287 @@
+#include </root/anaconda3/include/python3.11/Python.h>
+#include <stdio.h>
+#include </root/anaconda3/lib/python3.11/site-packages/numpy/core/include/numpy/arrayobject.h> // Include NumPy header
+/*
+Compile Documentation (by ZZC):
+
+using the following command to compile: gcc -shared -o libplotfunc.so -fPIC -O3 -I/root/anaconda3/include/python3.11 -I/root/anaconda3/lib/python3.11/site-packages/numpy/core/include plotfunc.c -L/root/anaconda3/lib -lpython3.11
+
+using the following command to use in another file: gcc -o myprogram -I/root/anaconda3/include/python3.11 -I/root/anaconda3/lib/python3.11/site-packages/numpy/core/include myprogram.c -L. -lplotfunc -L/root/anaconda3/lib -lpython3.11
+
+``` Clang
+#include </root/anaconda3/include/python3.11/Python.h>
+#include <numpy/arrayobject.h>
+
+// Declare the functions from the shared library
+PyObject* call_C_call_total(double sigma, double A, double FNL);
+PyObject* call_C_call_ob(double sigma, double A, double FNL);
+PyObject* call_C_call_ng1(double sigma, double A, double FNL);
+
+int main() {
+    // Initialize the Python Interpreter
+    Py_Initialize();
+    import_array(); // Initialize NumPy API
+
+    // Call the functions as needed
+    double sigma = 1.0;
+    double A = 3.6e-3;
+    double FNL = 5.0;
+
+    PyObject *result = call_C_call_total(sigma, A, FNL);
+    // Handle the result...
+
+    Py_Finalize();
+    return 0;
+}
+```
+Remeber to set the library path:
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/workspace/Ubuntu/SGWBxCMB/class_public/mypython
+*/
+
+void Py_initial_FNLGNLHNL_code() {
+    // Initialize the NumPy API
+    import_array(); // Added line
+
+    // Add . to the Python path
+    PyRun_SimpleString("import sys");
+    PyRun_SimpleString("sys.path.append('.')");
+
+    // Import plotfunc and its functions
+    PyObject *pModule = PyImport_ImportModule("plotfunc");
+    if (pModule == NULL) {
+        fprintf(stderr, "Failed to import plotfunc module\n");
+        return;
+    }
+
+    // Call the readdata function without any arguments
+    PyObject *pReaddataFunc = PyObject_GetAttrString(pModule, "readdata");
+    if (PyCallable_Check(pReaddataFunc)) {
+        PyObject *pArgs = PyTuple_New(1);
+        PyTuple_SetItem(pArgs, 0, Py_BuildValue("i", 1));
+        PyObject *pValue = PyObject_CallObject(pReaddataFunc, pArgs);
+        if (pValue != NULL) {
+            printf("Result of readdata call: %ld\n", PyLong_AsLong(pValue));
+            Py_DECREF(pValue);
+        } else {
+            PyErr_Print();
+        }
+        Py_DECREF(pArgs);
+    } else {
+        printf("Call readdata failed\n");
+    }
+    
+    // Clean up
+    Py_DECREF(pReaddataFunc);
+    Py_DECREF(pModule);
+}
+
+PyObject* call_C_call_total(double sigma, double A, double FNL) {
+    // Import plotfunc and its functions
+    PyObject *pModule = PyImport_ImportModule("plotfunc");
+    if (pModule == NULL) {
+        fprintf(stderr, "Failed to import plotfunc module\n");
+        return NULL;
+    }
+
+    // Call the C_call_total function
+    PyObject *pFunc = PyObject_GetAttrString(pModule, "C_call_total");
+    if (PyCallable_Check(pFunc)) {
+        PyObject *pArgs = PyTuple_New(3);
+        PyTuple_SetItem(pArgs, 0, Py_BuildValue("d", sigma)); // sigma
+        PyTuple_SetItem(pArgs, 1, Py_BuildValue("d", A)); // A
+        PyTuple_SetItem(pArgs, 2, Py_BuildValue("d", FNL)); // FNL
+
+        PyObject *pValue = PyObject_CallObject(pFunc, pArgs);
+        Py_DECREF(pArgs);
+        if (pValue != NULL) {
+            if (PyTuple_Check(pValue) && PyTuple_Size(pValue) == 2) {
+                PyObject *pArray1 = PyTuple_GetItem(pValue, 0);
+                PyObject *pArray2 = PyTuple_GetItem(pValue, 1);
+                if (PyArray_Check(pArray1) && PyArray_Check(pArray2)) {
+                    Py_INCREF(pArray1);
+                    Py_INCREF(pArray2);
+                    Py_DECREF(pValue);
+                    Py_DECREF(pFunc);
+                    Py_DECREF(pModule);
+                    return PyTuple_Pack(2, pArray1, pArray2);
+                } else {
+                    printf("Result of call: Unexpected return types\n");
+                }
+            } else {
+                printf("Result of call: Unexpected return value\n");
+            }
+            Py_DECREF(pValue);
+        } else {
+            PyErr_Print();
+        }
+        Py_DECREF(pFunc);
+    } else {
+        printf("Call C_call_total failed\n");
+    }
+
+    Py_DECREF(pModule);
+    return NULL;
+}
+
+PyObject* call_C_call_ob(double sigma, double A, double FNL) {
+    // Import plotfunc and its functions
+    PyObject *pModule = PyImport_ImportModule("plotfunc");
+    if (pModule == NULL) {
+        fprintf(stderr, "Failed to import plotfunc module\n");
+        return NULL;
+    }
+
+    // Call the C_call_ob function
+    PyObject *pFunc = PyObject_GetAttrString(pModule, "C_call_ob");
+    if (PyCallable_Check(pFunc)) {
+        PyObject *pArgs = PyTuple_New(3);
+        PyTuple_SetItem(pArgs, 0, Py_BuildValue("d", sigma)); // sigma
+        PyTuple_SetItem(pArgs, 1, Py_BuildValue("d", A)); // A
+        PyTuple_SetItem(pArgs, 2, Py_BuildValue("d", FNL)); // FNL
+
+        PyObject *pValue = PyObject_CallObject(pFunc, pArgs);
+        Py_DECREF(pArgs);
+        if (pValue != NULL) {
+            if (PyTuple_Check(pValue) && PyTuple_Size(pValue) == 2) {
+                PyObject *pArray1 = PyTuple_GetItem(pValue, 0);
+                PyObject *pArray2 = PyTuple_GetItem(pValue, 1);
+                if (PyArray_Check(pArray1) && PyArray_Check(pArray2)) {
+                    Py_INCREF(pArray1);
+                    Py_INCREF(pArray2);
+                    Py_DECREF(pValue);
+                    Py_DECREF(pFunc);
+                    Py_DECREF(pModule);
+                    return PyTuple_Pack(2, pArray1, pArray2);
+                } else {
+                    printf("Result of call: Unexpected return types\n");
+                }
+            } else {
+                printf("Result of call: Unexpected return value\n");
+            }
+            Py_DECREF(pValue);
+        } else {
+            PyErr_Print();
+        }
+        Py_DECREF(pFunc);
+    } else {
+        printf("Call C_call_ob failed\n");
+    }
+
+    Py_DECREF(pModule);
+    return NULL;
+}
+
+PyObject* call_C_call_ng1(double sigma, double A, double FNL) {
+    // Import plotfunc and its functions
+    PyObject *pModule = PyImport_ImportModule("plotfunc");
+    if (pModule == NULL) {
+        fprintf(stderr, "Failed to import plotfunc module\n");
+        return NULL;
+    }
+
+    // Call the C_call_ng1 function
+    PyObject *pFunc = PyObject_GetAttrString(pModule, "C_call_ng1");
+    if (PyCallable_Check(pFunc)) {
+        PyObject *pArgs = PyTuple_New(3);
+        PyTuple_SetItem(pArgs, 0, Py_BuildValue("d", sigma)); // sigma
+        PyTuple_SetItem(pArgs, 1, Py_BuildValue("d", A)); // A
+        PyTuple_SetItem(pArgs, 2, Py_BuildValue("d", FNL)); // FNL
+
+        PyObject *pValue = PyObject_CallObject(pFunc, pArgs);
+        Py_DECREF(pArgs);
+        if (pValue != NULL) {
+            if (PyTuple_Check(pValue) && PyTuple_Size(pValue) == 2) {
+                PyObject *pArray1 = PyTuple_GetItem(pValue, 0);
+                PyObject *pArray2 = PyTuple_GetItem(pValue, 1);
+                if (PyArray_Check(pArray1) && PyArray_Check(pArray2)) {
+                    Py_INCREF(pArray1);
+                    Py_INCREF(pArray2);
+                    Py_DECREF(pValue);
+                    Py_DECREF(pFunc);
+                    Py_DECREF(pModule);
+                    return PyTuple_Pack(2, pArray1, pArray2);
+                } else {
+                    printf("Result of call: Unexpected return types\n");
+                }
+            } else {
+                printf("Result of call: Unexpected return value\n");
+            }
+            Py_DECREF(pValue);
+        } else {
+            PyErr_Print();
+        }
+        Py_DECREF(pFunc);
+    } else {
+        printf("Call C_call_ng1 failed\n");
+    }
+
+    Py_DECREF(pModule);
+    return NULL;
+}
+
+int main(int argc, char *argv[]) {
+    // Initialize the Python Interpreter
+    Py_Initialize();
+
+    // Call the new function
+    Py_initial_FNLGNLHNL_code();
+
+    // Define parameters
+    double sigma = 1.0;
+    double A = 3.6e-3;
+    double FNL = 5.0;
+
+    // Call the C_call_total function and get the result
+    PyObject *result = call_C_call_total(sigma, A, FNL);
+
+    if (result != NULL) {
+        PyObject *pArray1 = PyTuple_GetItem(result, 0);
+        PyObject *pArray2 = PyTuple_GetItem(result, 1);
+        PyObject *pArray1Str = PyObject_Str(pArray1);
+        PyObject *pArray2Str = PyObject_Str(pArray2);
+        printf("total toArray 1: %s\n", PyUnicode_AsUTF8(pArray1Str));
+        printf("total toArray 2: %s\n", PyUnicode_AsUTF8(pArray2Str));
+        Py_DECREF(pArray1Str);
+        Py_DECREF(pArray2Str);
+        Py_DECREF(result);
+    }
+
+    // Call the C_call_ob function and get the result
+    PyObject *result2 = call_C_call_ob(sigma, A, FNL);
+
+    if (result2 != NULL) {
+        PyObject *pArray1 = PyTuple_GetItem(result2, 0);
+        PyObject *pArray2 = PyTuple_GetItem(result2, 1);
+        PyObject *pArray1Str = PyObject_Str(pArray1);
+        PyObject *pArray2Str = PyObject_Str(pArray2);
+        printf("ob toArray 1: %s\n", PyUnicode_AsUTF8(pArray1Str));
+        printf("ob toArray 2: %s\n", PyUnicode_AsUTF8(pArray2Str));
+        Py_DECREF(pArray1Str);
+        Py_DECREF(pArray2Str);
+        Py_DECREF(result2);
+    } else {
+        printf("Call C_call_ob failed\n");
+    }
+
+    // Call the C_call_ng1 function and get the result
+    PyObject *result3 = call_C_call_ng1(sigma, A, FNL);
+
+    if (result3 != NULL) {
+        PyObject *pArray1 = PyTuple_GetItem(result3, 0);
+        PyObject *pArray2 = PyTuple_GetItem(result3, 1);
+        PyObject *pArray1Str = PyObject_Str(pArray1);
+        PyObject *pArray2Str = PyObject_Str(pArray2);
+        printf("ng1 toArray 1: %s\n", PyUnicode_AsUTF8(pArray1Str));
+        printf("ng1 toArray 2: %s\n", PyUnicode_AsUTF8(pArray2Str));
+        Py_DECREF(pArray1Str);
+        Py_DECREF(pArray2Str);
+        Py_DECREF(result3);
+    } else {
+        printf("Call C_call_ng1 failed\n");
+    }
+
+    // Clean up and close the Python Interpreter
+    Py_Finalize();
+
+    return 0;
+}
