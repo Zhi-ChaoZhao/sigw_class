@@ -1,8 +1,8 @@
 *~
 build/
-class
+#class
 *.prof
-*.ini
+#*.ini
 libclass.a
 *out
 python/classy.c
