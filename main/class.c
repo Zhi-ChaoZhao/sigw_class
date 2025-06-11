@@ -3,7 +3,7 @@
  */
 
 #include "class.h"
-#include "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/omega_functions.h"
+#include "../FNLGNLHNLFunctions/omega_functions.h"
 
 int main(int argc, char **argv) {
   spline_function_initial_all();

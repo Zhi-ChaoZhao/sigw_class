@@ -115,7 +115,7 @@ OmegaData Data_Omega_P2N;
 gsl_spline* load_data(OmegaData *data, char *filename) {
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
-        perror("Error opening file");
+        fprintf(stderr, "Error opening file: %s\n", filename);
         exit(EXIT_FAILURE);
     }
     for (int i = 0; i < zzc_OMEGA_DATA_POINTS; i++) {
@@ -217,88 +217,88 @@ gsl_spline* spline_Omega_P2N;
 
 void spline_function_initial_all() {
     initialize_accel();
-    spline_B = load_data(&Data_B, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/B.dat");
-    spline_Omega_G = load_data(&Data_Omega_G, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_G.dat");
-    spline_Omega_H = load_data(&Data_Omega_H, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_H.dat");
-    spline_Omega_H2 = load_data(&Data_Omega_H2, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_H2.dat");
-    spline_Omega_H3 = load_data(&Data_Omega_H3, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_H3.dat");
-    spline_Omega_R = load_data(&Data_Omega_R, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_R.dat");
-    spline_Omega_RH = load_data(&Data_Omega_RH, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_RH.dat");
-    spline_Omega_RH2 = load_data(&Data_Omega_RH2, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_RH2.dat");
-    spline_Omega_R2 = load_data(&Data_Omega_R2, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_R2.dat");
-    spline_Omega_R2H = load_data(&Data_Omega_R2H, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_R2H.dat");
-    spline_Omega_R3 = load_data(&Data_Omega_R3, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_R3.dat");
-    spline_Omega_C = load_data(&Data_Omega_C, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_C.dat");
-    spline_Omega_CH = load_data(&Data_Omega_CH, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_CH.dat");
-    spline_Omega_CH2 = load_data(&Data_Omega_CH2, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_CH2.dat");
-    spline_Omega_CR = load_data(&Data_Omega_CR, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_CR.dat");
-    spline_Omega_CRH = load_data(&Data_Omega_CRH, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_CRH.dat");
-    spline_Omega_CR2 = load_data(&Data_Omega_CR2, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_CR2.dat");
-    spline_Omega_C2 = load_data(&Data_Omega_C2, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_C2.dat");
-    spline_Omega_C2H = load_data(&Data_Omega_C2H, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_C2H.dat");
-    spline_Omega_C2R = load_data(&Data_Omega_C2R, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_C2R.dat");
-    spline_Omega_C3 = load_data(&Data_Omega_C3, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_C3.dat");
-    spline_Omega_Z = load_data(&Data_Omega_Z, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_Z.dat");
-    spline_Omega_ZH = load_data(&Data_Omega_ZH, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_ZH.dat");
-    spline_Omega_ZH2 = load_data(&Data_Omega_ZH2, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_ZH2.dat");
-    spline_Omega_ZR = load_data(&Data_Omega_ZR, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_ZR.dat");
-    spline_Omega_ZRH = load_data(&Data_Omega_ZRH, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_ZRH.dat");
-    spline_Omega_ZR2 = load_data(&Data_Omega_ZR2, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_ZR2.dat");
-    spline_Omega_Z2 = load_data(&Data_Omega_Z2, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_Z2.dat");
-    spline_Omega_Z2H = load_data(&Data_Omega_Z2H, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_Z2H.dat");
-    spline_Omega_Z2R = load_data(&Data_Omega_Z2R, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_Z2R.dat");
-    spline_Omega_Z3 = load_data(&Data_Omega_Z3, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_Z3.dat");
-    spline_Omega_P = load_data(&Data_Omega_P, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_P.dat");
-    spline_Omega_PH = load_data(&Data_Omega_PH, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_PH.dat");
-    spline_Omega_PH2 = load_data(&Data_Omega_PH2, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_PH2.dat");
-    spline_Omega_PR = load_data(&Data_Omega_PR, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_PR.dat");
-    spline_Omega_PRH = load_data(&Data_Omega_PRH, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_PRH.dat");
-    spline_Omega_PR2 = load_data(&Data_Omega_PR2, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_PR2.dat");
-    spline_Omega_PC = load_data(&Data_Omega_PC, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_PC.dat");
-    spline_Omega_PCH = load_data(&Data_Omega_PCH, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_PCH.dat");
-    spline_Omega_PCR = load_data(&Data_Omega_PCR, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_PCR.dat");
-    spline_Omega_P2 = load_data(&Data_Omega_P2, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_P2.dat");
-    spline_Omega_P2H = load_data(&Data_Omega_P2H, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_P2H.dat");
-    spline_Omega_P2R = load_data(&Data_Omega_P2R, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_P2R.dat");
-    spline_Omega_PC2 = load_data(&Data_Omega_PC2, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_PC2.dat");
-    spline_Omega_P2C = load_data(&Data_Omega_P2C, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_P2C.dat");
-    spline_Omega_P3 = load_data(&Data_Omega_P3, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_P3.dat");
-    spline_Omega_N = load_data(&Data_Omega_N, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_N.dat");
-    spline_Omega_NH = load_data(&Data_Omega_NH, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_NH.dat");
-    spline_Omega_NH2 = load_data(&Data_Omega_NH2, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_NH2.dat");
-    spline_Omega_NR = load_data(&Data_Omega_NR, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_NR.dat");
-    spline_Omega_NRH = load_data(&Data_Omega_NRH, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_NRH.dat");
-    spline_Omega_NR2 = load_data(&Data_Omega_NR2, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_NR2.dat");
-    spline_Omega_NZH = load_data(&Data_Omega_NZH, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_NZH.dat");
-    spline_Omega_NZR = load_data(&Data_Omega_NZR, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_NZR.dat");
-    spline_Omega_N2R = load_data(&Data_Omega_N2R, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_N2R.dat");
-    spline_Omega_CZ = load_data(&Data_Omega_CZ, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_CZ.dat");
-    spline_Omega_CZH = load_data(&Data_Omega_CZH, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_CZH.dat");
-    spline_Omega_CZH2 = load_data(&Data_Omega_CZH2, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_CZH2.dat");
-    spline_Omega_CZHp = load_data(&Data_Omega_CZHp, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_CZHp.dat");
-    spline_Omega_CZR = load_data(&Data_Omega_CZR, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_CZR.dat");
-    spline_Omega_CZRH = load_data(&Data_Omega_CZRH, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_CZRH.dat");
-    spline_Omega_C2Z = load_data(&Data_Omega_C2Z, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_C2Z.dat");
-    spline_Omega_C2ZH = load_data(&Data_Omega_C2ZH, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_C2ZH.dat");
-    spline_Omega_CZ2 = load_data(&Data_Omega_CZ2, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_CZ2.dat");
-    spline_Omega_CZ2H = load_data(&Data_Omega_CZ2H, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_CZ2H.dat");
-    spline_Omega_PZ = load_data(&Data_Omega_PZ, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_PZ.dat");
-    spline_Omega_PZH = load_data(&Data_Omega_PZH, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_PZH.dat");
-    spline_Omega_PZR = load_data(&Data_Omega_PZR, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_PZR.dat");
-    spline_Omega_PZC = load_data(&Data_Omega_PZC, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_PZC.dat");
-    spline_Omega_PZCH = load_data(&Data_Omega_PZCH, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_PZCH.dat");
-    spline_Omega_P2Z = load_data(&Data_Omega_P2Z, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_P2Z.dat");
-    spline_Omega_PZ2 = load_data(&Data_Omega_PZ2, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_PZ2.dat");
-    spline_Omega_NC = load_data(&Data_Omega_NC, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_NC.dat");
-    spline_Omega_NCH = load_data(&Data_Omega_NCH, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_NCH.dat");
-    spline_Omega_NCR = load_data(&Data_Omega_NCR, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_NCR.dat");
-    spline_Omega_NCZH = load_data(&Data_Omega_NCZH, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_NCZH.dat");
-    spline_Omega_NC2 = load_data(&Data_Omega_NC2, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_NC2.dat");
-    spline_Omega_PN = load_data(&Data_Omega_PN, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_PN.dat");
-    spline_Omega_PNH = load_data(&Data_Omega_PNH, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_PNH.dat");
-    spline_Omega_PNR = load_data(&Data_Omega_PNR, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_PNR.dat");
-    spline_Omega_PNC = load_data(&Data_Omega_PNC, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_PNC.dat");
-    spline_Omega_P2N = load_data(&Data_Omega_P2N, "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/dat/Omega_P2N.dat");
+    spline_B = load_data(&Data_B, "FNLGNLHNLFunctions/dat/B.dat");
+    spline_Omega_G = load_data(&Data_Omega_G, "FNLGNLHNLFunctions/dat/Omega_G.dat");
+    spline_Omega_H = load_data(&Data_Omega_H, "FNLGNLHNLFunctions/dat/Omega_H.dat");
+    spline_Omega_H2 = load_data(&Data_Omega_H2, "FNLGNLHNLFunctions/dat/Omega_H2.dat");
+    spline_Omega_H3 = load_data(&Data_Omega_H3, "FNLGNLHNLFunctions/dat/Omega_H3.dat");
+    spline_Omega_R = load_data(&Data_Omega_R, "FNLGNLHNLFunctions/dat/Omega_R.dat");
+    spline_Omega_RH = load_data(&Data_Omega_RH, "FNLGNLHNLFunctions/dat/Omega_RH.dat");
+    spline_Omega_RH2 = load_data(&Data_Omega_RH2, "FNLGNLHNLFunctions/dat/Omega_RH2.dat");
+    spline_Omega_R2 = load_data(&Data_Omega_R2, "FNLGNLHNLFunctions/dat/Omega_R2.dat");
+    spline_Omega_R2H = load_data(&Data_Omega_R2H, "FNLGNLHNLFunctions/dat/Omega_R2H.dat");
+    spline_Omega_R3 = load_data(&Data_Omega_R3, "FNLGNLHNLFunctions/dat/Omega_R3.dat");
+    spline_Omega_C = load_data(&Data_Omega_C, "FNLGNLHNLFunctions/dat/Omega_C.dat");
+    spline_Omega_CH = load_data(&Data_Omega_CH, "FNLGNLHNLFunctions/dat/Omega_CH.dat");
+    spline_Omega_CH2 = load_data(&Data_Omega_CH2, "FNLGNLHNLFunctions/dat/Omega_CH2.dat");
+    spline_Omega_CR = load_data(&Data_Omega_CR, "FNLGNLHNLFunctions/dat/Omega_CR.dat");
+    spline_Omega_CRH = load_data(&Data_Omega_CRH, "FNLGNLHNLFunctions/dat/Omega_CRH.dat");
+    spline_Omega_CR2 = load_data(&Data_Omega_CR2, "FNLGNLHNLFunctions/dat/Omega_CR2.dat");
+    spline_Omega_C2 = load_data(&Data_Omega_C2, "FNLGNLHNLFunctions/dat/Omega_C2.dat");
+    spline_Omega_C2H = load_data(&Data_Omega_C2H, "FNLGNLHNLFunctions/dat/Omega_C2H.dat");
+    spline_Omega_C2R = load_data(&Data_Omega_C2R, "FNLGNLHNLFunctions/dat/Omega_C2R.dat");
+    spline_Omega_C3 = load_data(&Data_Omega_C3, "FNLGNLHNLFunctions/dat/Omega_C3.dat");
+    spline_Omega_Z = load_data(&Data_Omega_Z, "FNLGNLHNLFunctions/dat/Omega_Z.dat");
+    spline_Omega_ZH = load_data(&Data_Omega_ZH, "FNLGNLHNLFunctions/dat/Omega_ZH.dat");
+    spline_Omega_ZH2 = load_data(&Data_Omega_ZH2, "FNLGNLHNLFunctions/dat/Omega_ZH2.dat");
+    spline_Omega_ZR = load_data(&Data_Omega_ZR, "FNLGNLHNLFunctions/dat/Omega_ZR.dat");
+    spline_Omega_ZRH = load_data(&Data_Omega_ZRH, "FNLGNLHNLFunctions/dat/Omega_ZRH.dat");
+    spline_Omega_ZR2 = load_data(&Data_Omega_ZR2, "FNLGNLHNLFunctions/dat/Omega_ZR2.dat");
+    spline_Omega_Z2 = load_data(&Data_Omega_Z2, "FNLGNLHNLFunctions/dat/Omega_Z2.dat");
+    spline_Omega_Z2H = load_data(&Data_Omega_Z2H, "FNLGNLHNLFunctions/dat/Omega_Z2H.dat");
+    spline_Omega_Z2R = load_data(&Data_Omega_Z2R, "FNLGNLHNLFunctions/dat/Omega_Z2R.dat");
+    spline_Omega_Z3 = load_data(&Data_Omega_Z3, "FNLGNLHNLFunctions/dat/Omega_Z3.dat");
+    spline_Omega_P = load_data(&Data_Omega_P, "FNLGNLHNLFunctions/dat/Omega_P.dat");
+    spline_Omega_PH = load_data(&Data_Omega_PH, "FNLGNLHNLFunctions/dat/Omega_PH.dat");
+    spline_Omega_PH2 = load_data(&Data_Omega_PH2, "FNLGNLHNLFunctions/dat/Omega_PH2.dat");
+    spline_Omega_PR = load_data(&Data_Omega_PR, "FNLGNLHNLFunctions/dat/Omega_PR.dat");
+    spline_Omega_PRH = load_data(&Data_Omega_PRH, "FNLGNLHNLFunctions/dat/Omega_PRH.dat");
+    spline_Omega_PR2 = load_data(&Data_Omega_PR2, "FNLGNLHNLFunctions/dat/Omega_PR2.dat");
+    spline_Omega_PC = load_data(&Data_Omega_PC, "FNLGNLHNLFunctions/dat/Omega_PC.dat");
+    spline_Omega_PCH = load_data(&Data_Omega_PCH, "FNLGNLHNLFunctions/dat/Omega_PCH.dat");
+    spline_Omega_PCR = load_data(&Data_Omega_PCR, "FNLGNLHNLFunctions/dat/Omega_PCR.dat");
+    spline_Omega_P2 = load_data(&Data_Omega_P2, "FNLGNLHNLFunctions/dat/Omega_P2.dat");
+    spline_Omega_P2H = load_data(&Data_Omega_P2H, "FNLGNLHNLFunctions/dat/Omega_P2H.dat");
+    spline_Omega_P2R = load_data(&Data_Omega_P2R, "FNLGNLHNLFunctions/dat/Omega_P2R.dat");
+    spline_Omega_PC2 = load_data(&Data_Omega_PC2, "FNLGNLHNLFunctions/dat/Omega_PC2.dat");
+    spline_Omega_P2C = load_data(&Data_Omega_P2C, "FNLGNLHNLFunctions/dat/Omega_P2C.dat");
+    spline_Omega_P3 = load_data(&Data_Omega_P3, "FNLGNLHNLFunctions/dat/Omega_P3.dat");
+    spline_Omega_N = load_data(&Data_Omega_N, "FNLGNLHNLFunctions/dat/Omega_N.dat");
+    spline_Omega_NH = load_data(&Data_Omega_NH, "FNLGNLHNLFunctions/dat/Omega_NH.dat");
+    spline_Omega_NH2 = load_data(&Data_Omega_NH2, "FNLGNLHNLFunctions/dat/Omega_NH2.dat");
+    spline_Omega_NR = load_data(&Data_Omega_NR, "FNLGNLHNLFunctions/dat/Omega_NR.dat");
+    spline_Omega_NRH = load_data(&Data_Omega_NRH, "FNLGNLHNLFunctions/dat/Omega_NRH.dat");
+    spline_Omega_NR2 = load_data(&Data_Omega_NR2, "FNLGNLHNLFunctions/dat/Omega_NR2.dat");
+    spline_Omega_NZH = load_data(&Data_Omega_NZH, "FNLGNLHNLFunctions/dat/Omega_NZH.dat");
+    spline_Omega_NZR = load_data(&Data_Omega_NZR, "FNLGNLHNLFunctions/dat/Omega_NZR.dat");
+    spline_Omega_N2R = load_data(&Data_Omega_N2R, "FNLGNLHNLFunctions/dat/Omega_N2R.dat");
+    spline_Omega_CZ = load_data(&Data_Omega_CZ, "FNLGNLHNLFunctions/dat/Omega_CZ.dat");
+    spline_Omega_CZH = load_data(&Data_Omega_CZH, "FNLGNLHNLFunctions/dat/Omega_CZH.dat");
+    spline_Omega_CZH2 = load_data(&Data_Omega_CZH2, "FNLGNLHNLFunctions/dat/Omega_CZH2.dat");
+    spline_Omega_CZHp = load_data(&Data_Omega_CZHp, "FNLGNLHNLFunctions/dat/Omega_CZHp.dat");
+    spline_Omega_CZR = load_data(&Data_Omega_CZR, "FNLGNLHNLFunctions/dat/Omega_CZR.dat");
+    spline_Omega_CZRH = load_data(&Data_Omega_CZRH, "FNLGNLHNLFunctions/dat/Omega_CZRH.dat");
+    spline_Omega_C2Z = load_data(&Data_Omega_C2Z, "FNLGNLHNLFunctions/dat/Omega_C2Z.dat");
+    spline_Omega_C2ZH = load_data(&Data_Omega_C2ZH, "FNLGNLHNLFunctions/dat/Omega_C2ZH.dat");
+    spline_Omega_CZ2 = load_data(&Data_Omega_CZ2, "FNLGNLHNLFunctions/dat/Omega_CZ2.dat");
+    spline_Omega_CZ2H = load_data(&Data_Omega_CZ2H, "FNLGNLHNLFunctions/dat/Omega_CZ2H.dat");
+    spline_Omega_PZ = load_data(&Data_Omega_PZ, "FNLGNLHNLFunctions/dat/Omega_PZ.dat");
+    spline_Omega_PZH = load_data(&Data_Omega_PZH, "FNLGNLHNLFunctions/dat/Omega_PZH.dat");
+    spline_Omega_PZR = load_data(&Data_Omega_PZR, "FNLGNLHNLFunctions/dat/Omega_PZR.dat");
+    spline_Omega_PZC = load_data(&Data_Omega_PZC, "FNLGNLHNLFunctions/dat/Omega_PZC.dat");
+    spline_Omega_PZCH = load_data(&Data_Omega_PZCH, "FNLGNLHNLFunctions/dat/Omega_PZCH.dat");
+    spline_Omega_P2Z = load_data(&Data_Omega_P2Z, "FNLGNLHNLFunctions/dat/Omega_P2Z.dat");
+    spline_Omega_PZ2 = load_data(&Data_Omega_PZ2, "FNLGNLHNLFunctions/dat/Omega_PZ2.dat");
+    spline_Omega_NC = load_data(&Data_Omega_NC, "FNLGNLHNLFunctions/dat/Omega_NC.dat");
+    spline_Omega_NCH = load_data(&Data_Omega_NCH, "FNLGNLHNLFunctions/dat/Omega_NCH.dat");
+    spline_Omega_NCR = load_data(&Data_Omega_NCR, "FNLGNLHNLFunctions/dat/Omega_NCR.dat");
+    spline_Omega_NCZH = load_data(&Data_Omega_NCZH, "FNLGNLHNLFunctions/dat/Omega_NCZH.dat");
+    spline_Omega_NC2 = load_data(&Data_Omega_NC2, "FNLGNLHNLFunctions/dat/Omega_NC2.dat");
+    spline_Omega_PN = load_data(&Data_Omega_PN, "FNLGNLHNLFunctions/dat/Omega_PN.dat");
+    spline_Omega_PNH = load_data(&Data_Omega_PNH, "FNLGNLHNLFunctions/dat/Omega_PNH.dat");
+    spline_Omega_PNR = load_data(&Data_Omega_PNR, "FNLGNLHNLFunctions/dat/Omega_PNR.dat");
+    spline_Omega_PNC = load_data(&Data_Omega_PNC, "FNLGNLHNLFunctions/dat/Omega_PNC.dat");
+    spline_Omega_P2N = load_data(&Data_Omega_P2N, "FNLGNLHNLFunctions/dat/Omega_P2N.dat");
 }
 // ... existing code ...
 
@@ -904,7 +904,7 @@ int main() {
 
         // Test spline_B
         y = gsl_spline_eval(spline_B, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/B.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/B.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
@@ -915,567 +915,567 @@ int main() {
 
         // Test spline_Omega_G
         y = gsl_spline_eval(spline_Omega_G, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_G.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_G.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_H
         y = gsl_spline_eval(spline_Omega_H, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_H.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_H.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_H2
         y = gsl_spline_eval(spline_Omega_H2, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_H2.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_H2.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_H3
         y = gsl_spline_eval(spline_Omega_H3, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_H3.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_H3.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_R
         y = gsl_spline_eval(spline_Omega_R, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_R.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_R.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_RH
         y = gsl_spline_eval(spline_Omega_RH, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_RH.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_RH.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_RH2
         y = gsl_spline_eval(spline_Omega_RH2, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_RH2.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_RH2.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_R2
         y = gsl_spline_eval(spline_Omega_R2, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_R2.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_R2.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_R2H
         y = gsl_spline_eval(spline_Omega_R2H, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_R2H.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_R2H.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_R3
         y = gsl_spline_eval(spline_Omega_R3, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_R3.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_R3.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_C
         y = gsl_spline_eval(spline_Omega_C, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_C.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_C.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_CH
         y = gsl_spline_eval(spline_Omega_CH, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_CH.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_CH.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_CH2
         y = gsl_spline_eval(spline_Omega_CH2, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_CH2.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_CH2.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_CR
         y = gsl_spline_eval(spline_Omega_CR, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_CR.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_CR.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_CRH
         y = gsl_spline_eval(spline_Omega_CRH, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_CRH.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_CRH.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_CR2
         y = gsl_spline_eval(spline_Omega_CR2, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_CR2.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_CR2.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_C2
         y = gsl_spline_eval(spline_Omega_C2, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_C2.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_C2.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_C2H
         y = gsl_spline_eval(spline_Omega_C2H, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_C2H.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_C2H.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_C2R
         y = gsl_spline_eval(spline_Omega_C2R, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_C2R.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_C2R.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_C3
         y = gsl_spline_eval(spline_Omega_C3, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_C3.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_C3.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_Z
         y = gsl_spline_eval(spline_Omega_Z, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_Z.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_Z.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_ZH
         y = gsl_spline_eval(spline_Omega_ZH, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_ZH.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_ZH.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_ZH2
         y = gsl_spline_eval(spline_Omega_ZH2, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_ZH2.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_ZH2.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_ZR
         y = gsl_spline_eval(spline_Omega_ZR, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_ZR.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_ZR.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_ZRH
         y = gsl_spline_eval(spline_Omega_ZRH, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_ZRH.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_ZRH.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_ZR2
         y = gsl_spline_eval(spline_Omega_ZR2, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_ZR2.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_ZR2.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_Z2
         y = gsl_spline_eval(spline_Omega_Z2, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_Z2.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_Z2.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_Z2H
         y = gsl_spline_eval(spline_Omega_Z2H, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_Z2H.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_Z2H.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_Z2R
         y = gsl_spline_eval(spline_Omega_Z2R, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_Z2R.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_Z2R.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_Z3
         y = gsl_spline_eval(spline_Omega_Z3, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_Z3.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_Z3.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_P
         y = gsl_spline_eval(spline_Omega_P, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_P.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_P.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_PH
         y = gsl_spline_eval(spline_Omega_PH, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_PH.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_PH.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_PH2
         y = gsl_spline_eval(spline_Omega_PH2, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_PH2.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_PH2.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_PR
         y = gsl_spline_eval(spline_Omega_PR, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_PR.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_PR.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_PRH
         y = gsl_spline_eval(spline_Omega_PRH, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_PRH.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_PRH.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_PR2
         y = gsl_spline_eval(spline_Omega_PR2, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_PR2.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_PR2.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_PC
         y = gsl_spline_eval(spline_Omega_PC, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_PC.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_PC.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_PCH
         y = gsl_spline_eval(spline_Omega_PCH, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_PCH.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_PCH.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_PCR
         y = gsl_spline_eval(spline_Omega_PCR, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_PCR.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_PCR.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_P2
         y = gsl_spline_eval(spline_Omega_P2, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_P2.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_P2.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_P2H
         y = gsl_spline_eval(spline_Omega_P2H, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_P2H.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_P2H.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_P2R
         y = gsl_spline_eval(spline_Omega_P2R, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_P2R.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_P2R.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_PC2
         y = gsl_spline_eval(spline_Omega_PC2, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_PC2.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_PC2.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_P2C
         y = gsl_spline_eval(spline_Omega_P2C, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_P2C.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_P2C.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_P3
         y = gsl_spline_eval(spline_Omega_P3, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_P3.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_P3.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_N
         y = gsl_spline_eval(spline_Omega_N, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_N.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_N.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_NH
         y = gsl_spline_eval(spline_Omega_NH, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_NH.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_NH.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_NH2
         y = gsl_spline_eval(spline_Omega_NH2, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_NH2.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_NH2.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_NR
         y = gsl_spline_eval(spline_Omega_NR, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_NR.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_NR.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_NRH
         y = gsl_spline_eval(spline_Omega_NRH, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_NRH.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_NRH.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_NR2
         y = gsl_spline_eval(spline_Omega_NR2, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_NR2.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_NR2.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_NZH
         y = gsl_spline_eval(spline_Omega_NZH, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_NZH.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_NZH.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_NZR
         y = gsl_spline_eval(spline_Omega_NZR, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_NZR.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_NZR.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_N2R
         y = gsl_spline_eval(spline_Omega_N2R, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_N2R.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_N2R.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_CZ
         y = gsl_spline_eval(spline_Omega_CZ, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_CZ.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_CZ.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_CZH
         y = gsl_spline_eval(spline_Omega_CZH, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_CZH.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_CZH.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_CZH2
         y = gsl_spline_eval(spline_Omega_CZH2, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_CZH2.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_CZH2.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_CZHp
         y = gsl_spline_eval(spline_Omega_CZHp, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_CZHp.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_CZHp.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_CZR
         y = gsl_spline_eval(spline_Omega_CZR, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_CZR.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_CZR.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_CZRH
         y = gsl_spline_eval(spline_Omega_CZRH, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_CZRH.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_CZRH.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_C2Z
         y = gsl_spline_eval(spline_Omega_C2Z, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_C2Z.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_C2Z.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_C2ZH
         y = gsl_spline_eval(spline_Omega_C2ZH, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_C2ZH.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_C2ZH.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_CZ2
         y = gsl_spline_eval(spline_Omega_CZ2, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_CZ2.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_CZ2.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_CZ2H
         y = gsl_spline_eval(spline_Omega_CZ2H, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_CZ2H.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_CZ2H.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_PZ
         y = gsl_spline_eval(spline_Omega_PZ, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_PZ.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_PZ.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_PZH
         y = gsl_spline_eval(spline_Omega_PZH, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_PZH.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_PZH.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_PZR
         y = gsl_spline_eval(spline_Omega_PZR, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_PZR.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_PZR.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_PZC
         y = gsl_spline_eval(spline_Omega_PZC, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_PZC.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_PZC.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_PZCH
         y = gsl_spline_eval(spline_Omega_PZCH, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_PZCH.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_PZCH.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_P2Z
         y = gsl_spline_eval(spline_Omega_P2Z, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_P2Z.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_P2Z.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_PZ2
         y = gsl_spline_eval(spline_Omega_PZ2, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_PZ2.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_PZ2.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_NC
         y = gsl_spline_eval(spline_Omega_NC, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_NC.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_NC.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_NCH
         y = gsl_spline_eval(spline_Omega_NCH, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_NCH.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_NCH.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_NCR
         y = gsl_spline_eval(spline_Omega_NCR, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_NCR.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_NCR.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_NCZH
         y = gsl_spline_eval(spline_Omega_NCZH, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_NCZH.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_NCZH.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_NC2
         y = gsl_spline_eval(spline_Omega_NC2, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_NC2.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_NC2.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_PN
         y = gsl_spline_eval(spline_Omega_PN, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_PN.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_PN.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_PNH
         y = gsl_spline_eval(spline_Omega_PNH, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_PNH.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_PNH.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_PNR
         y = gsl_spline_eval(spline_Omega_PNR, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_PNR.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_PNR.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_PNZH
         y = gsl_spline_eval(spline_Omega_PNC, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_PNC.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_PNC.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);
 
         // Test spline_Omega_PN2
         y = gsl_spline_eval(spline_Omega_P2N, x, acc);
-        snprintf(filename, sizeof(filename), "./testdat/Omega_P2N.dat");
+        snprintf(filename, sizeof(filename), "FNLGNLHNLFunctions/testdat/Omega_P2N.dat");
         file = fopen(filename, "a");
         fprintf(file, "%e %e\n", x, y);
         fclose(file);

@@ -4,8 +4,8 @@
 #define __PRIMORDIAL__
 
 #include "perturbations.h"
-#include "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/fNLgNLhNL.h"
-#include "/workspace/Ubuntu/SGWBxCMB/class_public/FNLGNLHNLFunctions/omega_functions.h"
+#include "../FNLGNLHNLFunctions/fNLgNLhNL.h"
+#include "../FNLGNLHNLFunctions/omega_functions.h"
 
 /** enum defining how the primordial spectrum should be computed */
 
