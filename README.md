@@ -23,7 +23,7 @@ Kazunori Kohri (kazunori.kohri@gmail.com)
 
 =================================================================
 
-The spectrum results is from our previous work: arXiv:2305.19950, arXiv: 2305.2307.00572, arXiv:2412.02500 and arXiv:2309.07792
+The spectrum results are from our previous work: arXiv:2305.19950, arXiv: 2307.00572, arXiv:2412.02500 and arXiv:2309.07792
 
 =================================================================
 
